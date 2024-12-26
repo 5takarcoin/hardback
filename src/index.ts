@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import { connectDB } from "./dbConfig/dbConfig";
+import { Slots } from "./models/slots.models";
 
 dotenv.config();
 
@@ -9,15 +10,20 @@ const port = process.env.PORT || 3000;
 
 connectDB();
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Simple route
 app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript with Express!");
 });
 
-// Start the server
+app.post("/api/v1/slots", async (req: Request, res: Response) => {
+  const newSlot = new Slots(req.body);
+  const created = await newSlot.save();
+  const da = new Date(created.date).toISOString();
+  console.log(da);
+  res.send(created);
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
