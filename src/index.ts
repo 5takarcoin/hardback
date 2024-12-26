@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import { connectDB } from "./dbConfig/dbConfig";
 import { Slots } from "./models/slots.models";
+import cors from "cors";
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const port = process.env.PORT || 3000;
 
 connectDB();
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
