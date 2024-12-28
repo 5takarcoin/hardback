@@ -19,12 +19,8 @@ const SlotSchema = new Schema({
   title: {
     type: String,
   },
-  infos: [
-    {
-      type: String,
-      required: true,
-    },
-  ],
+  // infos: [InfoSchema],
+  infos: [String],
 });
 
 export const Slots = model("Slot", SlotSchema);

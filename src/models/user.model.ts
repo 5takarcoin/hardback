@@ -5,11 +5,15 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true,
   },
-  tableStyle: {
+  currTable: {
     type: Schema.Types.ObjectId,
     ref: "Table",
   },
