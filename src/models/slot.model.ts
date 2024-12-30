@@ -23,4 +23,4 @@ const SlotSchema = new Schema({
   infos: [String],
 });
 
-export const Slots = model("Slot", SlotSchema);
+export const Slot = model("Slot", SlotSchema);

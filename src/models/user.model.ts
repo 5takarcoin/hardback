@@ -4,6 +4,7 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   name: {
     type: String,
@@ -19,4 +20,4 @@ const UserSchema = new Schema({
   },
 });
 
-export const Users = model("User", UserSchema);
+export const User = model("User", UserSchema);

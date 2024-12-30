@@ -17,4 +17,4 @@ const TableSchema = new Schema({
   ],
 });
 
-export const Tables = model("Table", TableSchema);
+export const Table = model("Table", TableSchema);

@@ -1,8 +1,9 @@
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import { connectDB } from "./dbConfig/dbConfig";
-import { Slots } from "./models/slots.models";
+import { Slot } from "./models/slot.model";
 import cors from "cors";
+import router from "./routers/router";
 
 dotenv.config();
 
@@ -18,13 +19,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello, TypeScript with Express!");
 });
 
-app.post("/api/v1/slots", async (req: Request, res: Response) => {
-  const newSlot = new Slots(req.body);
-  const created = await newSlot.save();
-  const da = new Date(created.date).toISOString();
-  console.log(da);
-  res.send(created);
-});
+app.use("/api/v1", router);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
