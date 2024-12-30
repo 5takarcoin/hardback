@@ -15,14 +15,14 @@ authRouter.post("/signup", async (req, res) => {
     password: encpass,
   });
   const result = await user.save();
-  res.send("Go next");
+  res.send(user);
 });
 
 authRouter.post("/login", async (req, res) => {
   const encpass = await bcrypt.hash(req.body.password, 10);
   const user = await User.findOne({ username: req.body.username });
   if (!user) {
-    res.send("ini nai");
+    res.send({});
     return;
   }
   const check = await bcrypt.compare(req.body.password, user.password);
