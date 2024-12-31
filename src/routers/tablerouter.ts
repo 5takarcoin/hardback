@@ -8,11 +8,16 @@ tableRouter.get("", async (req, res) => {
   res.send(allTableStyles);
 });
 
+tableRouter.get("/:id", async (req, res) => {
+  const allTableStyles = await TableStyle.findOne({ name: req.params.id });
+  res.send(allTableStyles);
+});
+
 tableRouter.post("", async (req, res) => {
   const table = new TableStyle(req.body);
   const result = await table.save();
   console.log(req.body);
-  res.send("ye");
+  res.send(result);
 });
 
 export default tableRouter;

@@ -20,7 +20,9 @@ authRouter.post("/signup", async (req, res) => {
 
 authRouter.post("/login", async (req, res) => {
   const encpass = await bcrypt.hash(req.body.password, 10);
-  const user = await User.findOne({ username: req.body.username });
+  const user = await User.findOne({ username: req.body.username }).populate(
+    "currTable"
+  );
   if (!user) {
     res.send({});
     return;
