@@ -11,7 +11,7 @@ const InfoSchema = new Schema({
   },
 });
 
-const SlotSchema = new Schema({
+export const SlotSchema = new Schema({
   date: {
     type: Number,
     required: true,

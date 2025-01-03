@@ -1,12 +1,14 @@
 import { Router } from "express";
 import authRouter from "./authrouter";
-import tableRouter from "./tablerouter";
+import tableStyleRouter from "./tableStyleRouter";
 import userRouter from "./userRouter";
+import tableRouter from "./tablerouter";
 
 const router = Router();
 
 router.use("/auth", authRouter);
-router.use("/table", tableRouter);
+router.use("/tableStyle", tableStyleRouter);
 router.use("/user", userRouter);
+router.use("/table", tableRouter);
 
 export default router;
