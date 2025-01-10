@@ -13,11 +13,12 @@ const InfoSchema = new Schema({
 
 export const SlotSchema = new Schema({
   date: {
-    type: Number,
+    type: String,
     required: true,
   },
   title: {
     type: String,
+    required: true,
   },
   // infos: [InfoSchema],
   infos: [String],

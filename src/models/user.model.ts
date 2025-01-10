@@ -16,7 +16,7 @@ const UserSchema = new Schema({
   },
   currTable: {
     type: Schema.Types.ObjectId,
-    ref: "TableStyle",
+    ref: "Table",
   },
 });
 

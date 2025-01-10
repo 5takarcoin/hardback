@@ -11,16 +11,7 @@ const TableSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "TableStyle",
   },
-  slots: {
-    default: [], // Ensure empty arrays are handled as the default
-    type: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Slot",
-      },
-    ],
-    required: true, // Slots are optional
-  },
+  slots: [SlotSchema],
 });
 
 export const Table = model("Table", TableSchema);
