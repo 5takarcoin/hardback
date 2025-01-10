@@ -45,7 +45,12 @@ authRouter.post("/login", async (req, res) => {
           expiresIn: "1h",
         }
       );
-      // res.cookie('Bearer')
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        maxAge: 60 * 60 * 1000,
+      });
+
       res.send({ token, message: "Login Successful" });
     } else {
       res.send({ message: "User not found" });

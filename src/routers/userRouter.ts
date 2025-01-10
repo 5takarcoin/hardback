@@ -9,6 +9,10 @@ userRouter.get("", async (req, res) => {
   res.send(allUsers);
 });
 
+userRouter.get("/profile", authenticateJWT, (req, res) => {
+  res.status(200).send({ message: "Access granted", user: (req as any).user });
+});
+
 userRouter.get("/:id", async (req, res) => {
   const doc = await User.findOne({ username: req.params.id }).populate({
     path: "currTable",
@@ -39,9 +43,5 @@ userRouter.put("/:id", async (req, res) => {
     res.send(error);
   }
 });
-
-// userRouter.get('/profile', authenticateJWT, (req, res) => {
-//   res.status(200).json({ message: 'Access granted', user: req.user });
-// });
 
 export default userRouter;
