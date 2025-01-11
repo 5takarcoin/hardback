@@ -9,8 +9,16 @@ userRouter.get("", async (req, res) => {
   res.send(allUsers);
 });
 
-userRouter.get("/profile", authenticateJWT, (req, res) => {
-  res.status(200).send({ message: "Access granted", user: (req as any).user });
+userRouter.get("/profile", authenticateJWT, async (req, res) => {
+  const doc = await User.findOne({
+    username: (req as any).user.username,
+  }).populate({
+    path: "currTable",
+    populate: {
+      path: "schema",
+    },
+  });
+  res.status(200).send({ message: "Access granted", user: doc });
 });
 
 userRouter.get("/:id", async (req, res) => {
@@ -31,14 +39,8 @@ userRouter.put("/:id", async (req, res) => {
     if (doc) {
       doc.currTable = req.body.currTable;
       await doc.save();
-      await doc.populate({
-        path: "currTable",
-        populate: {
-          path: "schema",
-        },
-      });
+      res.send({ message: "Table Assigned" });
     }
-    res.send(doc);
   } catch (error) {
     res.send(error);
   }
