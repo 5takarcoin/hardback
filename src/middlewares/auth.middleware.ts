@@ -35,7 +35,8 @@ export const authenticateJWT = (
   const token = req.cookies.token;
 
   if (!token) {
-    res.status(401).send({ message: "Authorization token missing" });
+    res.send({ message: "Authorization token missing" });
+    return;
   }
 
   try {
@@ -44,6 +45,6 @@ export const authenticateJWT = (
     next();
   } catch (err) {
     console.error("Invalid token:", err);
-    res.status(403).send({ message: "Invalid token" });
+    res.send({ message: "Invalid token" });
   }
 };
