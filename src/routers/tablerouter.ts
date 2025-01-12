@@ -32,10 +32,8 @@ tableRouter.put("/:id", async (req, res) => {
 
 tableRouter.post("", async (req, res) => {
   try {
-    // const table = new Table(req.body);
     const table = new Table(req.body);
     const result = await table.save();
-    console.log("new table");
     res.send(result);
   } catch (err) {
     res.send(err);

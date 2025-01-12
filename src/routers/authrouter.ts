@@ -14,13 +14,31 @@ authRouter.get("/", (req, res) => {
 });
 
 authRouter.post("/signup", async (req, res) => {
-  const encpass = await bcrypt.hash(req.body.password, 10);
-  const user = new User({
-    ...req.body,
-    password: encpass,
-  });
-  const result = await user.save();
-  res.send(user);
+  try {
+    const encpass = await bcrypt.hash(req.body.password, 10);
+    const user = new User({
+      ...req.body,
+      password: encpass,
+    });
+    await user.save();
+
+    const token = jwt.sign(
+      { username: user.username, userId: user._id },
+      process.env.JWT_SECRET!,
+      {
+        expiresIn: "1h",
+      }
+    );
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 60 * 60 * 1000,
+    });
+
+    res.send({ token, message: "Signup Successful" });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 authRouter.post("/login", async (req, res) => {
