@@ -33,6 +33,7 @@ authRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.cookie("token", token, {
             httpOnly: true,
             sameSite: "none",
+            secure: true,
             maxAge: 60 * 60 * 1000,
         });
         res.send({ token, message: "Signup Successful" });

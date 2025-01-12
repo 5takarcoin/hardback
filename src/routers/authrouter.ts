@@ -32,6 +32,7 @@ authRouter.post("/signup", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       sameSite: "none",
+      secure: true,
       maxAge: 60 * 60 * 1000,
     });
 
