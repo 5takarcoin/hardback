@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello, TypeScript with Express! v1   - logout issue");
+  res.send("Hello, TypeScript with Express! v1  howa uchit");
 });
 
 app.use("/api/v1", router);
