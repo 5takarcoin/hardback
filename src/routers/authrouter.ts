@@ -81,7 +81,12 @@ authRouter.post("/login", async (req, res) => {
 });
 
 authRouter.get("/logout", (req, res) => {
-  res.cookie("token", " ", { maxAge: 1 });
+  res.cookie("token", " ", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    maxAge: 1,
+  });
   res.send({ message: "Logged out successfully" });
 });
 
