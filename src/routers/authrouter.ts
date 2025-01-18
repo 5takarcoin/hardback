@@ -69,7 +69,6 @@ authRouter.post("/login", async (req, res) => {
         sameSite: "none",
         secure: true,
         maxAge: 60 * 60 * 1000,
-        path: "./",
       });
       res.send({ token, message: "Login Successful" });
     } else {
@@ -93,7 +92,6 @@ authRouter.post("/logout", (req, res) => {
     sameSite: "none",
     secure: true,
     maxAge: 10,
-    path: "./",
   });
   res.send({ message: "Logged out successfully" });
 });
