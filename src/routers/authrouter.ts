@@ -32,6 +32,7 @@ authRouter.post("/signup", async (req, res) => {
       httpOnly: true,
       sameSite: "none",
       secure: true,
+      path: "./",
       maxAge: 60 * 60 * 1000,
     });
 
@@ -68,6 +69,7 @@ authRouter.post("/login", async (req, res) => {
         sameSite: "none",
         secure: true,
         maxAge: 60 * 60 * 1000,
+        path: "./",
       });
       res.send({ token, message: "Login Successful" });
     } else {
@@ -80,12 +82,18 @@ authRouter.post("/login", async (req, res) => {
 });
 
 authRouter.get("/logout", (req, res) => {
+  res.clearCookie("token", { path: "./" });
+  res.send({ message: "Logged out successfully" });
+});
+
+authRouter.post("/logout", (req, res) => {
   // res.clearCookie("token", { path: "./" });
   res.cookie("token", "A", {
     httpOnly: true,
     sameSite: "none",
     secure: true,
     maxAge: 10,
+    path: "./",
   });
   res.send({ message: "Logged out successfully" });
 });
