@@ -56,7 +56,6 @@ authRouter.post("/login", async (req, res) => {
           path: "schema",
         },
       });
-      console.log(doc);
       const token = jwt.sign(
         { username: doc.username, userId: doc._id },
         process.env.JWT_SECRET!,
@@ -81,7 +80,13 @@ authRouter.post("/login", async (req, res) => {
 });
 
 authRouter.get("/logout", (req, res) => {
-  res.clearCookie("token", { path: "./" });
+  // res.clearCookie("token", { path: "./" });
+  res.cookie("token", "A", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    maxAge: 10,
+  });
   res.send({ message: "Logged out successfully" });
 });
 
