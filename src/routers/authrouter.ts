@@ -80,18 +80,12 @@ authRouter.post("/login", async (req, res) => {
   }
 });
 
-authRouter.get("/logout", (req, res) => {
-  res.clearCookie("token", { path: "./" });
-  res.send({ message: "Logged out successfully" });
-});
-
 authRouter.post("/logout", (req, res) => {
-  // res.clearCookie("token", { path: "./" });
-  res.cookie("token", "A", {
+  res.cookie("token", "", {
     httpOnly: true,
     sameSite: "none",
     secure: true,
-    maxAge: 10,
+    maxAge: 1,
   });
   res.send({ message: "Logged out successfully" });
 });
