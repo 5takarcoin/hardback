@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import { Router } from "express";
 import { User } from "../models/user.model";
 import bcrypt from "bcrypt";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
 dotenv.config();
@@ -57,6 +56,7 @@ authRouter.post("/login", async (req, res) => {
           path: "schema",
         },
       });
+      console.log(doc);
       const token = jwt.sign(
         { username: doc.username, userId: doc._id },
         process.env.JWT_SECRET!,
@@ -70,7 +70,6 @@ authRouter.post("/login", async (req, res) => {
         secure: true,
         maxAge: 60 * 60 * 1000,
       });
-
       res.send({ token, message: "Login Successful" });
     } else {
       res.send({ message: "User not found" });

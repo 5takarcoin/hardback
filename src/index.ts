@@ -13,6 +13,12 @@ const port = process.env.PORT || 3000;
 
 connectDB();
 
+// app.use(
+//   cors({
+//     origin: process.env.CLIENT,
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
     origin: process.env.CLIENT,
