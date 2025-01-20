@@ -13,7 +13,7 @@ userRouter.get("/profile", authenticateJWT, async (req, res) => {
   const doc = await User.findOne({
     username: (req as any).user.username,
   }).populate({
-    path: "currTable",
+    path: "tables",
     populate: {
       path: "schema",
     },
@@ -23,13 +23,12 @@ userRouter.get("/profile", authenticateJWT, async (req, res) => {
 
 userRouter.get("/:id", async (req, res) => {
   const doc = await User.findOne({ username: req.params.id }).populate({
-    path: "currTable",
+    path: "tables",
     populate: {
       path: "schema",
     },
   });
 
-  // const result = await doc?.currTable?.populate("schema")
   res.send(doc);
 });
 
@@ -37,7 +36,7 @@ userRouter.put("/:id", async (req, res) => {
   try {
     const doc = await User.findOne({ username: req.params.id });
     if (doc) {
-      doc.currTable = req.body.currTable;
+      doc.tables = [req.body.currTable, ...doc.tables];
       await doc.save();
       res.send({ message: "Table Assigned" });
     }

@@ -20,7 +20,6 @@ authRouter.post("/signup", async (req, res) => {
       password: encpass,
     });
     await user.save();
-
     const token = jwt.sign(
       { username: user.username, userId: user._id },
       process.env.JWT_SECRET!,
@@ -32,13 +31,14 @@ authRouter.post("/signup", async (req, res) => {
       httpOnly: true,
       sameSite: "none",
       secure: true,
-      path: "./",
       maxAge: 60 * 60 * 1000,
     });
 
     res.send({ token, message: "Signup Successful" });
   } catch (err) {
-    console.log(err);
+    if ((err as any).code === 11000)
+      res.send({ message: "Username not available" });
+    else res.send(err);
   }
 });
 
@@ -52,7 +52,7 @@ authRouter.post("/login", async (req, res) => {
         return;
       }
       await doc.populate({
-        path: "currTable",
+        path: "tables",
         populate: {
           path: "schema",
         },

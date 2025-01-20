@@ -14,10 +14,12 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  currTable: {
-    type: Schema.Types.ObjectId,
-    ref: "Table",
-  },
+  tables: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Table",
+    },
+  ],
 });
 
 export const User = model("User", UserSchema);
