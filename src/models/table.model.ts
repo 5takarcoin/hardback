@@ -3,6 +3,10 @@ import { model, Schema } from "mongoose";
 import { SlotSchema } from "./slot.model";
 
 const TableSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+  },
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
