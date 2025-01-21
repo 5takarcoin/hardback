@@ -12,6 +12,7 @@ const TableSchema = new Schema({
     ref: "TableStyle",
   },
   slots: [SlotSchema],
+  weekly: [SlotSchema],
 });
 
 export const Table = model("Table", TableSchema);

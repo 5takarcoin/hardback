@@ -18,7 +18,6 @@ export const SlotSchema = new Schema({
   },
   title: {
     type: String,
-    required: true,
   },
   // infos: [InfoSchema],
   infos: [String],

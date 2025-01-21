@@ -30,6 +30,19 @@ tableRouter.put("/:id", async (req, res) => {
   }
 });
 
+tableRouter.put("/:id/w", async (req, res) => {
+  try {
+    const table = await Table.findById(req.params.id);
+    if (table) {
+      table.weekly = [...table.weekly, req.body] as any;
+      await table.save();
+    }
+    res.send(table);
+  } catch (err) {
+    res.send(err);
+  }
+});
+
 tableRouter.post("", async (req, res) => {
   try {
     const table = new Table(req.body);
