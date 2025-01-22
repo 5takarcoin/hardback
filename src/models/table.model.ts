@@ -15,6 +15,9 @@ const TableSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "TableStyle",
   },
+  color: {
+    type: String,
+  },
   slots: [SlotSchema],
   weekly: [SlotSchema],
 });
