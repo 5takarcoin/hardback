@@ -36,7 +36,7 @@ userRouter.put("/:id", async (req, res) => {
   try {
     const doc = await User.findOne({ username: req.params.id });
     if (doc) {
-      doc.tables = [req.body.currTable, ...doc.tables];
+      doc.tables = [...doc.tables, req.body.currTable];
       await doc.save();
       res.send({ message: "Table Assigned" });
     }
