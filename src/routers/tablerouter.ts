@@ -21,7 +21,14 @@ tableRouter.put("/:id", async (req, res) => {
   try {
     const table = await Table.findById(req.params.id).populate("slots");
     if (table) {
-      table.slots = [...table.slots, req.body] as any;
+      const index = table.slots.findIndex((obj) => {
+        return obj.date == req.body.date;
+      });
+      if (index !== -1) {
+        table.slots[index] = req.body;
+      } else {
+        table.slots = [...table.slots, req.body] as any;
+      }
       await table.save();
     }
     res.send(table);
